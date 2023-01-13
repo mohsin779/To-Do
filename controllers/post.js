@@ -55,7 +55,6 @@ exports.deletePost = async (req, res) => {
 
 exports.editPost = async (req, res) => {
   try {
-    console.log(req.body);
     const { error } = PostValidations.validate(req.body);
     if (error) {
       return res
@@ -73,6 +72,7 @@ exports.editPost = async (req, res) => {
       cloudinary.uploader.destroy(filename);
       imagePath = await cloudinary.uploader.upload(req.file.path);
       imagePath = imagePath.secure_url;
+      clearImage(req.file.path);
     }
 
     post.title = title;
@@ -108,5 +108,5 @@ exports.getPost = async (req, res) => {
 
 const clearImage = (filePath) => {
   filePath = path.join(__dirname, "..", filePath);
-  fs.unlink(filePath, (err) => console.log(err));
+  fs.unlink(filePath, (err) => (err ? console.log(err) : null));
 };

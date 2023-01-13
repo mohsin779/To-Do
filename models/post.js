@@ -19,7 +19,7 @@ const validation = Joi.object({
   description: Joi.string().trim(true).required(),
   status: Joi.boolean().required(),
   image: [Joi.string().trim(true).optional(), Joi.allow(null)],
-  labels: [Joi.array().optional(), Joi.allow(null)],
+  labels: Joi.array().required(),
 });
 
 const Post = model("Post", postSchema);
