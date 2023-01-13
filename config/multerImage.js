@@ -18,8 +18,10 @@ module.exports = function () {
       fileSize: 10000000, // 10000000 Bytes = 10 MB
     },
     fileFilter(req, file, cb) {
-      if (!file.originalname.match(/\.(jpeg|png|svg|jpg|gif)$/)) {
-        return cb(new Error("Please upload Image"));
+      if (file) {
+        if (!file.originalname.match(/\.(jpeg|png|svg|jpg|gif)$/)) {
+          return cb(new Error("Please upload valid Image file"));
+        }
       }
       cb(undefined, true);
     },
