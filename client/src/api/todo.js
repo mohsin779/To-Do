@@ -7,10 +7,8 @@ const todoApi = {
       if (!response.ok) {
         throw new Error(response.problem);
       }
-      console.log(response.data);
       return response.data.posts;
     } catch (error) {
-      console.log(error.message);
       return [];
     }
   },
@@ -21,7 +19,6 @@ const todoApi = {
       if (!response.ok) {
         throw new Error(response.problem);
       }
-      console.log(response.data);
       return response.data.post;
     } catch (error) {
       console.log(error.message);
@@ -35,7 +32,6 @@ const todoApi = {
       if (!response.ok) {
         throw new Error(response.problem);
       }
-      console.log(response.data.labels);
       return response.data.labels;
     } catch (error) {
       console.log(error.message);
@@ -43,9 +39,6 @@ const todoApi = {
     }
   },
   changeStatus: async (todoData, id) => {
-    for (const value of todoData.values()) {
-      console.log(typeof value, value);
-    }
     return await client.patch("/api/post/edit-post/" + id, todoData);
   },
   addTodo: async todoData => {
@@ -55,6 +48,7 @@ const todoApi = {
       },
     });
   },
+
   deleteTodo: async id => {
     return await client.delete("/api/post/delete-post/" + id);
   },

@@ -1,21 +1,28 @@
-import React, { useEffect, useRef, useState } from "react";
-import client from "../api/client";
+import React, { useEffect, useState } from "react";
 
 import { useForm } from "react-hook-form";
 
 import { yupResolver } from "@hookform/resolvers/yup";
 
 import { todoSchema } from "../validations/TodoValidation";
+import ReactDOM from "react-dom/client";
 
 import Error from "../components/Error";
 import { useMutation, useQuery } from "react-query";
-import CloseIcon from "../components/icons/CloseIcon";
-import TodoLabelCircle from "../components/TodoLabelCircle";
+
 import CheckBox from "../components/CheckBox";
 import todoApi from "../api/todo";
 
-const TodoForm = ({ setShowAddTodo }) => {
-  const [labels, setLabels] = useState([]);
+import { useDispatch, useSelector } from "react-redux";
+import { setSelectedItem, toggleShowForm } from "../stores/Todo/todoSlice";
+
+const TodoForm = () => {
+  const dispatch = useDispatch();
+
+  const { selectedItem } = useSelector(state => state.todo);
+  const [labels, setLabels] = useState(() =>
+    selectedItem.labels ? selectedItem.labels.map(lbl => lbl._id) : []
+  );
 
   const {
     register,
@@ -33,6 +40,14 @@ const TodoForm = ({ setShowAddTodo }) => {
       closeForm();
     },
   });
+  const editTodoMutation = useMutation({
+    mutationFn: formData => {
+      return todoApi.addTodo(formData);
+    },
+    onSuccess: data => {
+      closeForm();
+    },
+  });
 
   const query = useQuery("GET_ALL_LABELS", () => todoApi.getLabels());
 
@@ -43,22 +58,25 @@ const TodoForm = ({ setShowAddTodo }) => {
       placeholder: "Title",
       name: "title",
       type: "text",
+      defVal: selectedItem.title,
     },
     {
       placeholder: "Description",
       name: "description",
       type: "textarea",
+      defVal: selectedItem.description,
     },
   ];
 
   const closeForm = () => {
-    setShowAddTodo(false);
+    dispatch(toggleShowForm());
+    dispatch(setSelectedItem({}));
   };
 
   const onSubmit = async data => {
     const formData = new FormData();
 
-    formData.append("image", file);
+    if (selectedItem) formData.append("image", file);
     labels.forEach(label => {
       formData.append("labels", label);
     });
@@ -71,19 +89,7 @@ const TodoForm = ({ setShowAddTodo }) => {
     for (const value of formData.values()) {
       console.log(value);
     }
-
-    // const res = await client.post("./api/post/add-post", formData, {
-    //   headers: {
-    //     "Content-Type": "multipart/form-data",
-    //   },
-    // });
-
-    // console.log(res.data);
   };
-
-  useEffect(() => {
-    console.log(labels, "LABELS");
-  }, [labels]);
 
   const onSelect = id => {
     const itemIndex = labels.findIndex(label => label === id);
@@ -108,6 +114,7 @@ const TodoForm = ({ setShowAddTodo }) => {
               <div className="inputs-container" key={inputItem.name}>
                 {inputItem.type == "textarea" ? (
                   <textarea
+                    defaultValue={inputItem.defVal}
                     className={`input-field ${
                       !errors[inputItem.name] ? "" : "error-msg"
                     }`}
@@ -117,6 +124,7 @@ const TodoForm = ({ setShowAddTodo }) => {
                   />
                 ) : (
                   <input
+                    defaultValue={inputItem.defVal}
                     className={`input-field ${
                       !errors[inputItem.name] ? "" : "error-msg"
                     }`}
@@ -142,6 +150,8 @@ const TodoForm = ({ setShowAddTodo }) => {
           {query.isSuccess
             ? query.data.map(labelItem => (
                 <CheckBox
+                  value={labels.find(label => label === labelItem._id)}
+                  checked={labels.find(label => label === labelItem._id)}
                   key={labelItem._id}
                   text={labelItem.title}
                   onChangeStatus={() => {
@@ -178,7 +188,12 @@ const TodoForm = ({ setShowAddTodo }) => {
             </div>
           ) : null}
         </div>
-        <input className="btn-primary" type="submit" value="Add" />
+        <input
+          disabled={addTodoMutation.isLoading}
+          className="btn-primary"
+          type="submit"
+          value={selectedItem ? "Edit" : "Add"}
+        />
       </form>
     </div>
   );

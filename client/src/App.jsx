@@ -1,25 +1,30 @@
-import { useContext, useEffect, useState } from "react";
-import { useQuery } from "react-query";
-import todoApi from "./api/todo";
+import { useState, useEffect } from "react";
+
 import ActivityIndicator from "./components/ActivityIndicator";
 import Center from "./components/Wrappers/Center";
-// import { TodoContext } from "./context/todoContext";
 import TodoDetails from "./views/TodoDetails";
 import TodoForm from "./views/TodoForm";
 import TodoList from "./views/TodoList";
 import TodoSidebar from "./views/TodoSidebar";
+import { useSelector, useDispatch } from "react-redux";
+
+import useRefetchItems from "./hooks/useRefetchItems";
 
 function App() {
-  const query = useQuery("getTojadoiahodiaodo", () => todoApi.getTodos());
+  // const [showAddTodo, setShowAddTodo] = useState(false);
 
-  const [selectedTodo, setSelectedTodo] = useState(null);
+  const query = useRefetchItems();
 
-  const [showAddTodo, setShowAddTodo] = useState(false);
+  const { selectedItem, showForm } = useSelector(state => state.todo);
+
+  useEffect(() => {
+    if (showForm == false) query.refetch();
+  }, [showForm]);
 
   return (
     <main className="app-container">
-      {showAddTodo ? <TodoForm setShowAddTodo={setShowAddTodo} /> : null}
-      <TodoSidebar setShowAddTodo={setShowAddTodo} />
+      {showForm ? <TodoForm /> : null}
+      <TodoSidebar />
       {query.isError ? (
         <Center>
           <h3>Something Went Wrong</h3>
@@ -27,20 +32,16 @@ function App() {
       ) : query.isSuccess ? (
         query.data.length > 0 ? (
           <>
-            <TodoList
-              selected={selectedTodo}
-              setSelected={setSelectedTodo}
-              items={query.data}
-            />
+            <TodoList />
 
-            {selectedTodo === null ? (
+            {!selectedItem._id ? (
               <div className="details details-skeleton">
                 <Center>
                   <h3>Select a todo item to see details</h3>
                 </Center>
               </div>
             ) : (
-              <TodoDetails id={selectedTodo} />
+              <TodoDetails />
             )}
           </>
         ) : (

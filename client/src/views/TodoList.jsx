@@ -1,20 +1,13 @@
-import React, { useEffect } from "react";
-import { useQuery } from "react-query";
-import todoApi from "../api/todo";
+import React from "react";
+
 import TodoItem from "../components/TodoItem";
 
-const TodoList = ({ items, setSelected, selected }) => {
-  // if (isLoading) {
-  //   return (
-  //     <section className="list-container">
-  //       <h3>Something Went Wrong, Please try again</h3>
-  //     </section>
-  //   );
-  // }
+import { useDispatch, useSelector } from "react-redux";
+import { setSelectedItem } from "../stores/Todo/todoSlice";
 
-  const onSelect = id => {
-    setSelected(id);
-  };
+const TodoList = () => {
+  const dispatch = useDispatch();
+  const items = useSelector(state => state.todo.filteredItems);
 
   return (
     <section className="list-container">
@@ -22,13 +15,10 @@ const TodoList = ({ items, setSelected, selected }) => {
         <div
           key={todo._id}
           onClick={() => {
-            onSelect(todo._id);
+            dispatch(setSelectedItem(todo));
           }}
         >
-          <TodoItem
-            selected={todo._id === selected ? true : false}
-            todo={todo}
-          />
+          <TodoItem todo={todo} />
         </div>
       ))}
     </section>

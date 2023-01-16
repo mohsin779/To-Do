@@ -12,8 +12,20 @@
 @import "./FileInput.scss";
 @import "./Todo/TodoSidebar.scss";
 @import "./ActivityIndicator.scss";
+@import "./variables.scss";
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+
+textarea::placeholder,
+input::placeholder {
+  font-family: $font-kanit;
+}
+
+input:disabled,
+input:disabled:hover {
+  background-color: $bg-disabled;
+  border-color: $bg-disabled;
 }

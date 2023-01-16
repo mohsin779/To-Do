@@ -1,9 +1,11 @@
 import React from "react";
 
-const TodoLabelItem = ({ title, color }) => {
-  console.log("first");
+const TodoLabelItem = ({ title, color, selected, onClick }) => {
   return (
-    <div className="label-item">
+    <div
+      onClick={onClick}
+      className={`label-item ${selected ? "label-item-active" : ""}`}
+    >
       <span
         data-testid="circle-label"
         className="label-item-color"

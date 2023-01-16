@@ -5,50 +5,28 @@ import TodoDescription from "../components/TodoDescription";
 import TodoFooter from "../components/TodoFooter";
 import TodoHeader from "../components/TodoHeader";
 
-const TodoDetails = ({ id }) => {
-  const { data, isSuccess, isLoading, refetch } = useQuery(
-    "get_Single_Todo_Item_By_Id",
-    () => {
-      console.log(id);
-      return todoApi.getTodo(id);
-    },
-    {
-      refetchOnWindowFocus: false,
-      enabled: false,
-    }
-  );
+import { useDispatch, useSelector } from "react-redux";
 
-  useEffect(() => {
-    refetch();
-  }, [id]);
+const TodoDetails = () => {
+  const item = useSelector(state => state.todo.selectedItem);
 
   return (
     <section className="details">
-      {isSuccess ? (
-        <>
-          <TodoHeader title={data.title} />
-          <div className="img-container">
-            {data.image ? <img src={data.image} /> : null}
-          </div>
-          <TodoDescription
-            description={data.description}
-            style={{
-              textOverflow: "unset",
-              whiteSpace: "normal",
-              flex: 1,
-              overflowY: "scroll",
-            }}
-          />
-          {/* <TodoFooter
-            status={data.status}
-            changeStatus={() => {
-              console.log("first");
-            }}
-          /> */}
-        </>
-      ) : (
-        "asd"
-      )}
+      <>
+        <TodoHeader item={item} />
+        <div className="img-container">
+          {item.image ? <img src={item.image} /> : null}
+        </div>
+        <TodoDescription
+          description={item.description}
+          style={{
+            textOverflow: "unset",
+            whiteSpace: "normal",
+            flex: 1,
+            overflowY: "scroll",
+          }}
+        />
+      </>
     </section>
   );
 };
