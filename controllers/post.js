@@ -60,13 +60,19 @@ exports.deletePost = async (req, res) => {
 
 exports.editPost = async (req, res) => {
   try {
-    const { error } = PostValidations.validate(req.body);
+    const reqData = req.body;
+
+    if (typeof reqData.labels === "string") {
+      reqData.labels = [reqData.labels];
+    }
+
+    const { error } = PostValidations.validate(reqData);
     if (error) {
       return res
         .status(StatusCodes.BAD_REQUEST)
         .send({ error: error.details[0].message });
     }
-    const { title, description, labels, status } = req.body;
+    const { title, description, labels, status } = reqData;
     const { postId } = req.params;
     const post = await Post.findById(postId);
     let imagePath = post.image;
