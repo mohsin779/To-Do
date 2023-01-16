@@ -1,0 +1,30 @@
+@import "../variables.scss";
+
+.side-bar {
+  // background-color: red;
+  padding-right: 1rem;
+  flex: 0.8;
+  h1 {
+    font-family: $font-kanit;
+    color: $text-color;
+    font-size: 2.5rem;
+    padding: 1rem;
+    margin-bottom: 4rem;
+  }
+}
+
+.btn-primary {
+  display: block;
+  width: 100%;
+  margin-bottom: 4rem;
+  padding: 1rem 0.7rem;
+
+  background-color: $bg-primary;
+  border-radius: 10px;
+  border: 3px solid $bg-primary;
+  cursor: pointer;
+  &:hover {
+    background-color: white;
+    transform: scale(1.02);
+  }
+}

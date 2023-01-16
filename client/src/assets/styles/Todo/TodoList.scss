@@ -1,0 +1,36 @@
+@import "../variables.scss";
+
+.list-container {
+  flex: 2;
+  padding: 1rem;
+  overflow: scroll;
+}
+.list-container::-webkit-scrollbar {
+  display: none;
+}
+.mad-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.mad {
+  font-family: $font-kanit;
+  font-size: 0.8rem;
+  color: $text-color;
+  margin-left: 0.5rem;
+}
+.status-container {
+  flex: 4;
+}
+.banner {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.banner > h3 {
+  font-family: $font-kanit;
+  color: $text-color-2;
+  text-align: center;
+  font-weight: normal;
+}

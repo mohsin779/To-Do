@@ -1,0 +1,55 @@
+@import "./variables.scss";
+.bi-three-dots {
+  fill: $text-color-2;
+}
+
+.drop-down-container {
+  position: relative;
+  border: 0;
+  background-color: transparent;
+}
+
+.drop-down {
+  display: none;
+  position: absolute;
+  right: 1.4rem;
+  top: 1.4rem;
+  background-color: rgb(255, 255, 232);
+  // background-color: red;
+  border-radius: 10px;
+}
+.drop-down-item {
+  cursor: pointer;
+  font-family: $font-kanit;
+  font-size: 0.8rem;
+  color: $text-color-2;
+
+  width: 7rem;
+  padding: 1rem;
+}
+.drop-down-item:hover {
+  background-color: rgba(245, 245, 210);
+}
+
+.menu-btn {
+  background-color: transparent;
+  border: 0;
+  padding: 0.2rem;
+  border-radius: 50%;
+  width: 1.75rem;
+  height: 1.75rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: all 200ms ease-in;
+  border: 2px solid transparent;
+}
+.menu-btn:hover {
+  outline: none;
+  border: 2px solid $bg-primary-dark;
+}
+.menu-btn:hover + .drop-down,
+.drop-down:hover {
+  display: block;
+}

@@ -1,0 +1,16 @@
+.desc-container {
+  width: calc(100%);
+}
+.todo-description {
+  width: calc(100%);
+  overflow: hidden;
+  white-space: nowrap;
+  display: inline-block;
+  text-overflow: ellipsis;
+  color: $text-color-2;
+
+  line-height: 1.5rem;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}

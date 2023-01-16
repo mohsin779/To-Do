@@ -1,0 +1,25 @@
+.label-item-color {
+  width: 1.3rem;
+  display: block;
+  margin-right: 0.8rem;
+  height: 1.3rem;
+  background-color: rgb(56, 243, 39);
+  border-radius: 50%;
+}
+.label-item {
+  padding: 0.8rem 1rem;
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  border-radius: 8px;
+
+  &:hover {
+    background-color: $bg-primary;
+  }
+}
+
+.label-item-text {
+  font-family: $font-kanit;
+  color: $text-color;
+  // font-size: 1.2rem;
+}
