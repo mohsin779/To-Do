@@ -29,3 +29,12 @@ yarn test
 ```
 yarn coverage
 ```
+
+### Environment Variables
+```
+PORT                               # Port Number
+MONGO_URL                          # MongoDB Connection URL
+CLOUDINARY_CLOUD_NAME              # Cloudinary Cloud Name
+CLOUDINARY_API_KEY                 # Cloudinary Public API Key
+CLOUDINARY_API_SECRET              # Cloudinary Secret Key
+```
