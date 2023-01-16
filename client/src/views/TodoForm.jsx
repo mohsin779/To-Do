@@ -61,17 +61,12 @@ const TodoForm = ({ setShowAddTodo }) => {
     formData.append("image", file);
     labels.forEach(label => {
       formData.append("labels", label);
-      formData.append("labels", "");
     });
     formData.append("title", data.title);
     formData.append("description", data.description);
     formData.append("status", false);
 
     addTodoMutation.mutate(formData);
-
-    // for(let i=0;i<2;i++){
-    //   formData.append
-    // }
 
     for (const value of formData.values()) {
       console.log(value);
