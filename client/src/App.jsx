@@ -15,7 +15,9 @@ function App() {
 
   const query = useRefetchItems();
 
-  const { selectedItem, showForm } = useSelector(state => state.todo);
+  const { selectedItem, showForm, filteredItems } = useSelector(
+    state => state.todo
+  );
 
   useEffect(() => {
     if (showForm == false) query.refetch();
@@ -30,7 +32,7 @@ function App() {
           <h3>Something Went Wrong</h3>
         </Center>
       ) : query.isSuccess ? (
-        query.data.length > 0 ? (
+        filteredItems.length > 0 ? (
           <>
             <TodoList />
 
