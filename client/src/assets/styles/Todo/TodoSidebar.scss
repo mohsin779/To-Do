@@ -16,7 +16,7 @@
 .btn-primary {
   display: block;
   width: 100%;
-  margin-bottom: 4rem;
+  margin-bottom: 1rem;
   padding: 1rem 0.7rem;
 
   background-color: $bg-primary;
@@ -27,4 +27,7 @@
     background-color: white;
     transform: scale(1.02);
   }
+}
+.btn-label {
+  margin-bottom: 2rem;
 }

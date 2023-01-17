@@ -1,6 +1,7 @@
 import client from "./client";
 
 const todoApi = {
+  // READ
   getTodos: async () => {
     try {
       const response = await client.get("/api/post/get-posts");
@@ -38,15 +39,20 @@ const todoApi = {
       return [];
     }
   },
-  changeStatus: async (todoData, id) => {
-    return await client.patch("/api/post/edit-post/" + id, todoData);
-  },
+  // CREATE
   addTodo: async todoData => {
     return await client.post("/api/post/add-post", todoData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
     });
+  },
+  addLabel: async labelData => {
+    return await client.post("/api/label/add-label", labelData);
+  },
+  // EDIT
+  changeStatus: async (todoData, id) => {
+    return await client.patch("/api/post/edit-post/" + id, todoData);
   },
   editTodo: async (todoData, id) => {
     return await client.patch("/api/post/edit-post/" + id, todoData, {
@@ -55,7 +61,7 @@ const todoApi = {
       },
     });
   },
-
+  // DELETE
   deleteTodo: async id => {
     return await client.delete("/api/post/delete-post/" + id);
   },

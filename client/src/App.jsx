@@ -9,13 +9,14 @@ import TodoSidebar from "./views/TodoSidebar";
 import { useSelector, useDispatch } from "react-redux";
 
 import useRefetchItems from "./hooks/useRefetchItems";
+import LabelForm from "./views/LabelForm";
 
 function App() {
   // const [showAddTodo, setShowAddTodo] = useState(false);
 
   const query = useRefetchItems();
 
-  const { selectedItem, showForm, filteredItems } = useSelector(
+  const { selectedItem, showForm, labelForm, filteredItems } = useSelector(
     state => state.todo
   );
 
@@ -25,6 +26,7 @@ function App() {
 
   return (
     <main className="app-container">
+      {labelForm ? <LabelForm /> : null}
       {showForm ? <TodoForm /> : null}
       <TodoSidebar />
       {query.isError ? (

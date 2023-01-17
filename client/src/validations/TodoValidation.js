@@ -14,3 +14,7 @@ export const todoSchema = yup.object().shape({
   // }),
   // labels: yup.array().required("Please select a label"),
 });
+export const labelSchema = yup.object().shape({
+  title: yup.string().required(),
+  color: yup.string().required(),
+});

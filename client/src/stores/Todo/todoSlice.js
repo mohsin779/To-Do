@@ -6,6 +6,7 @@ const initialState = {
   selectedItem: {},
   selectedLabel: null,
   loading: false,
+  labelForm: false,
   showForm: false,
 };
 
@@ -23,6 +24,10 @@ const todoSlice = createSlice({
       state.items = action.payload;
       state.filteredItems = action.payload;
     },
+    toggleLabelForm: state => {
+      state.labelForm = !state.labelForm;
+    },
+
     setSelectedLabel: (state, action) => {
       // if (state.selectedLabel === null) {
       //   state.filteredItems = state.items;
@@ -45,6 +50,11 @@ const todoSlice = createSlice({
   },
 });
 
-export const { setSelectedItem, setSelectedLabel, setItems, toggleShowForm } =
-  todoSlice.actions;
+export const {
+  setSelectedItem,
+  setSelectedLabel,
+  setItems,
+  toggleShowForm,
+  toggleLabelForm,
+} = todoSlice.actions;
 export default todoSlice.reducer;

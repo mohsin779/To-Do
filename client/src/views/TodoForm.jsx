@@ -59,7 +59,16 @@ const TodoForm = () => {
 
   const query = useQuery("GET_ALL_LABELS", () => todoApi.getLabels());
 
+  // const [file, setFile] = useState(() => {
+  //   return selectedItem.image
+  //     ? { name: selectedItem.image.split("/")[selectedItem.image.length - 1] }
+  //     : {};
+  // });
   const [file, setFile] = useState({});
+
+  const [imgSrc, setImgSrc] = useState(() => {
+    return selectedItem.image ? selectedItem.image : "";
+  });
 
   const formInputs = [
     {
@@ -83,9 +92,11 @@ const TodoForm = () => {
 
   const onSubmit = async data => {
     console.log(data);
+    return;
     const formData = new FormData();
 
-    if (selectedItem) formData.append("image", file);
+    if (selectedItem._id && !file.name) {
+    } else formData.append("image", file);
     labels.forEach(label => {
       formData.append("labels", label);
     });
@@ -111,10 +122,16 @@ const TodoForm = () => {
     setLabels(tempLabels);
   };
 
+  const selectFile = e => {
+    setFile(e.target.files[0]);
+    let src = URL.createObjectURL(e.target.files[0]);
+    setImgSrc(src);
+  };
+
   return (
     <div className="form-container">
       <form onSubmit={handleSubmit(onSubmit)}>
-        {addTodoMutation.isLoading ? (
+        {addTodoMutation.isLoading || editTodoMutation.isLoading ? (
           <div className="loading-container">
             <Center>
               <ActivityIndicator></ActivityIndicator>
@@ -186,9 +203,7 @@ const TodoForm = () => {
             type="file"
             id="image"
             accept="image/*"
-            onChange={e => {
-              setFile(e.target.files[0]);
-            }}
+            onChange={selectFile}
           />
           <label htmlFor="image">
             {file.name ? file.name : "Choose an Image"}
@@ -198,6 +213,9 @@ const TodoForm = () => {
               {<Error>Please choose an image</Error>}
             </div>
           ) : null}
+        </div>
+        <div className="img-preview">
+          {imgSrc ? <img src={imgSrc} /> : null}
         </div>
         <input
           disabled={addTodoMutation.isLoading}

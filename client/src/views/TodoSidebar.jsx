@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   setSelectedItem,
   setSelectedLabel,
+  toggleLabelForm,
   toggleShowForm,
 } from "../stores/Todo/todoSlice";
 
@@ -20,6 +21,9 @@ const TodoSidebar = () => {
     dispatch(toggleShowForm());
     dispatch(setSelectedItem({}));
   };
+  const showLabelForm = () => {
+    dispatch(toggleLabelForm());
+  };
 
   const onSelect = id => {
     dispatch(setSelectedLabel(id));
@@ -30,6 +34,9 @@ const TodoSidebar = () => {
       <h1>todo</h1>
       <button onClick={showForm} className="btn-primary">
         Add New Task
+      </button>
+      <button onClick={showLabelForm} className="btn-primary btn-label">
+        Add New Label
       </button>
       <div>
         <TodoLabelItem
