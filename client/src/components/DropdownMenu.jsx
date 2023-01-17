@@ -10,7 +10,8 @@ const DropdownMenu = ({ item }) => {
   const dispatch = useDispatch();
 
   const onDelete = async () => {
-    await todoApi.deleteTodo(item.id);
+    await todoApi.deleteTodo(item._id);
+    dispatch(setSelectedItem({}));
     query.refetch();
   };
 

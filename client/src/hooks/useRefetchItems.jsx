@@ -5,7 +5,7 @@ import { setItems } from "../stores/Todo/todoSlice";
 
 function useRefetchItems() {
   const dispatch = useDispatch();
-  const query = useQuery("getTojadoiahodiaodo", () => todoApi.getTodos(), {
+  const query = useQuery("GET_ALL_TODO_ITEMS", () => todoApi.getTodos(), {
     onSuccess: data => {
       dispatch(setItems(data));
     },

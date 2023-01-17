@@ -16,6 +16,9 @@ import todoApi from "../api/todo";
 import { useDispatch, useSelector } from "react-redux";
 import { setSelectedItem, toggleShowForm } from "../stores/Todo/todoSlice";
 
+import Center from "../components/Wrappers/Center";
+import ActivityIndicator from "../components/ActivityIndicator";
+
 const TodoForm = () => {
   const dispatch = useDispatch();
 
@@ -104,6 +107,13 @@ const TodoForm = () => {
   return (
     <div className="form-container">
       <form onSubmit={handleSubmit(onSubmit)}>
+        {addTodoMutation.isLoading ? (
+          <div className="loading-container">
+            <Center>
+              <ActivityIndicator></ActivityIndicator>
+            </Center>
+          </div>
+        ) : null}
         <div>
           <span onClick={closeForm} className="close">
             &times;
@@ -161,12 +171,6 @@ const TodoForm = () => {
                 />
               ))
             : null}
-
-          {/* <TodoLabelCircle />
-          <p>work</p>
-          <TodoLabelCircle />
-          <TodoLabelCircle />
-          <TodoLabelCircle /> */}
         </div>
 
         <div className="file-container">
@@ -192,7 +196,7 @@ const TodoForm = () => {
           disabled={addTodoMutation.isLoading}
           className="btn-primary"
           type="submit"
-          value={selectedItem ? "Edit" : "Add"}
+          value={selectedItem._id ? "Edit" : "Add"}
         />
       </form>
     </div>

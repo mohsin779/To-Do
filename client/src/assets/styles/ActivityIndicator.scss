@@ -1,6 +1,7 @@
 @import "./variables.scss";
 .loader {
-  color: $text-color-2;
+  color: $text-color;
+  opacity: 1;
   font-size: 10px;
   width: 1em;
   height: 1em;
