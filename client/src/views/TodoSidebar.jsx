@@ -3,7 +3,11 @@ import { useQuery } from "react-query";
 import todoApi from "../api/todo";
 import TodoLabelItem from "../components/TodoLabelItem";
 import { useDispatch, useSelector } from "react-redux";
-import { setSelectedLabel, toggleShowForm } from "../stores/Todo/todoSlice";
+import {
+  setSelectedItem,
+  setSelectedLabel,
+  toggleShowForm,
+} from "../stores/Todo/todoSlice";
 
 const TodoSidebar = () => {
   const dispatch = useDispatch();
@@ -14,6 +18,7 @@ const TodoSidebar = () => {
 
   const showForm = () => {
     dispatch(toggleShowForm());
+    dispatch(setSelectedItem({}));
   };
 
   const onSelect = id => {

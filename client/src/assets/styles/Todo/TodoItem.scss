@@ -17,17 +17,6 @@
   width: calc(100%);
   background-color: $bg-primary;
 
-  .desc-container {
-    text-overflow: ellipsis;
-    overflow: hidden;
-    height: 50%;
-  }
-
-  .todo-description {
-    color: $text-color-2;
-    line-height: 1.5rem;
-  }
-
   .todo-labels {
     display: flex;
     justify-content: end;

@@ -42,7 +42,14 @@ const todoApi = {
     return await client.patch("/api/post/edit-post/" + id, todoData);
   },
   addTodo: async todoData => {
-    return await client.post("./api/post/add-post", todoData, {
+    return await client.post("/api/post/add-post", todoData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+  },
+  editTodo: async (todoData, id) => {
+    return await client.patch("/api/post/edit-post/" + id, todoData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },

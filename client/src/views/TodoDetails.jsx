@@ -19,12 +19,12 @@ const TodoDetails = () => {
         </div>
         <TodoDescription
           description={item.description}
-          style={{
-            textOverflow: "unset",
-            whiteSpace: "normal",
-            flex: 1,
-            overflowY: "scroll",
-          }}
+          style={
+            {
+              // textOverflow: "clip",
+              // overflowY: "scroll",
+            }
+          }
         />
       </>
     </section>

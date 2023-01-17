@@ -35,6 +35,10 @@ const TodoForm = () => {
     resolver: yupResolver(todoSchema),
   });
 
+  useEffect(() => {
+    console.log(errors);
+  }, [errors]);
+
   const addTodoMutation = useMutation({
     mutationFn: formData => {
       return todoApi.addTodo(formData);
@@ -43,9 +47,10 @@ const TodoForm = () => {
       closeForm();
     },
   });
+
   const editTodoMutation = useMutation({
     mutationFn: formData => {
-      return todoApi.addTodo(formData);
+      return todoApi.editTodo(formData, selectedItem._id);
     },
     onSuccess: data => {
       closeForm();
@@ -77,6 +82,7 @@ const TodoForm = () => {
   };
 
   const onSubmit = async data => {
+    console.log(data);
     const formData = new FormData();
 
     if (selectedItem) formData.append("image", file);
@@ -87,7 +93,8 @@ const TodoForm = () => {
     formData.append("description", data.description);
     formData.append("status", false);
 
-    addTodoMutation.mutate(formData);
+    if (selectedItem._id) editTodoMutation.mutate(formData);
+    else addTodoMutation.mutate(formData);
 
     for (const value of formData.values()) {
       console.log(value);

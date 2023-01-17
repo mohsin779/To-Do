@@ -1,5 +1,5 @@
 import { fireEvent, render, screen } from "@testing-library/react";
-import { QueryClient, QueryClientProvider, useMutation } from "react-query";
+import { QueryClient, QueryClientProvider } from "react-query";
 import { describe, expect, it, test } from "vitest";
 
 import mockData from "../../data/db.json";

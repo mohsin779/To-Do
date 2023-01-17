@@ -1,11 +1,14 @@
-.desc-container {
-  width: calc(100%);
+.description-container {
+  height: 100%;
+  // white-space: wrap;
+  display: flex;
 }
 .todo-description {
-  width: calc(100%);
+  // width: calc(100%);
+  // width: 100%;
   overflow: hidden;
-  white-space: nowrap;
-  display: inline-block;
+  // white-space: nowrap;
+  // display: inline-block;
   text-overflow: ellipsis;
   color: $text-color-2;
 
