@@ -63,12 +63,12 @@ const LabelForm = () => {
 
   const onSubmit = async data => {
     console.log(data);
-    const formData = new FormData();
+    // const formData = new FormData();
 
-    formData.append("title", data.title);
-    formData.append("color", data.color);
+    // formData.append("title", data.title);
+    // formData.append("color", data.color);
 
-    addLabelMutation.mutate(formData);
+    addLabelMutation.mutate({ title: data.title, color: data.color });
   };
 
   return (
@@ -89,7 +89,7 @@ const LabelForm = () => {
         {formInputs.length
           ? formInputs.map(inputItem => (
               <div className="inputs-container" key={inputItem.name}>
-                {inputItem.type === "file" ? (
+                {inputItem.type === "color" ? (
                   <div className="color-container">
                     <label htmlFor={inputItem.name}>Color:</label>
                     <input

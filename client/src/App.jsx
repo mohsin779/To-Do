@@ -6,14 +6,12 @@ import TodoDetails from "./views/TodoDetails";
 import TodoForm from "./views/TodoForm";
 import TodoList from "./views/TodoList";
 import TodoSidebar from "./views/TodoSidebar";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 import useRefetchItems from "./hooks/useRefetchItems";
 import LabelForm from "./views/LabelForm";
 
 function App() {
-  // const [showAddTodo, setShowAddTodo] = useState(false);
-
   const query = useRefetchItems();
 
   const { selectedItem, showForm, labelForm, filteredItems } = useSelector(
@@ -22,7 +20,7 @@ function App() {
 
   useEffect(() => {
     if (showForm == false) query.refetch();
-  }, [showForm]);
+  }, [showForm, labelForm]);
 
   return (
     <main className="app-container">
@@ -49,11 +47,9 @@ function App() {
             )}
           </>
         ) : (
-          <div className="details details-skeleton">
-            <Center>
-              <h3>You dont have anything to do.</h3>
-            </Center>
-          </div>
+          <Center>
+            <h3>You dont have anything to do.</h3>
+          </Center>
         )
       ) : (
         <Center>

@@ -4,9 +4,9 @@ import TodoDescription from "./TodoDescription";
 import TodoFooter from "./TodoFooter";
 import TodoHeader from "./TodoHeader";
 
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
-const TodoItem = ({ todo, selected }) => {
+const TodoItem = ({ todo }) => {
   const selectedItem = useSelector(state => state.todo.selectedItem);
 
   return (

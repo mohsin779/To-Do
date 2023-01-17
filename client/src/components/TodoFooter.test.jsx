@@ -23,11 +23,4 @@ describe("TodoFooter Component", () => {
 
     expect(labelContainerElement.childElementCount).toBe(5);
   });
-  test("should render only 5 labels if labels are more than 5", () => {
-    render(<MockTodoFooter />);
-
-    const labelContainerElement = screen.getByTestId("footer-labels");
-
-    expect(labelContainerElement.childElementCount).toBe(5);
-  });
 });

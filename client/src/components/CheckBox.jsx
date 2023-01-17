@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 
-const CheckBox = ({ text, checked, onChangeStatus, id }) => {
+const CheckBox = ({ text, checked, value, onChangeStatus, id, register }) => {
   const checkboxRef = useRef(null);
 
   const selectCheckBox = () => {
@@ -11,6 +11,8 @@ const CheckBox = ({ text, checked, onChangeStatus, id }) => {
     <div className="mad-container">
       <div className="round">
         <input
+          value={value}
+          {...register()}
           ref={checkboxRef}
           type="checkbox"
           checked={checked}

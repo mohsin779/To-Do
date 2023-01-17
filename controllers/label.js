@@ -4,6 +4,7 @@ const { Post } = require("../models/post");
 
 exports.addLabel = async (req, res) => {
   try {
+    console.log(req.body);
     const { error } = LabelValidations.validate(req.body);
     if (error) {
       return res

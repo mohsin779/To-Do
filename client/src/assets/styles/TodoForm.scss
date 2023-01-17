@@ -92,6 +92,10 @@
     font-size: 0.8rem;
     width: 100%;
   }
+  .check-container {
+    min-width: 25%;
+    height: 2rem;
+  }
 }
 
 .file-container {
@@ -141,18 +145,39 @@ input[type="submit"]:hover {
   border: 2px solid $bg-primary-dark;
 }
 
-.input-field[type="color"] {
-  // background-color: red;
-  // outline: red;
+// .input-field[type="color"] {
+//   // background-color: red;
+//   // outline: red;
 
-  border: 0;
-  width: 25px;
+//   border: 0;
+//   width: 25px;
+//   padding: 0;
+//   // margin: 0;
+//   margin-bottom: 1rem;
+//   border-radius: 20px;
+//   overflow: hidden;
+//   // outline: red;
+// }
+.color-container {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+
+  position: relative;
   padding: 0;
-  // margin: 0;
-  margin-bottom: 1rem;
-  border-radius: 20px;
-  overflow: hidden;
-  // outline: red;
+  margin: 1rem 0;
+  label {
+    position: static;
+    flex: 1;
+    justify-content: start;
+    border: 0;
+    text-align: start;
+  }
+  input {
+    border: 2px solid $bg-primary-dark;
+    border-radius: 10px;
+    flex: 1;
+  }
 }
 
 .error-msg {

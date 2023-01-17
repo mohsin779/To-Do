@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 
 import { useForm } from "react-hook-form";
 
@@ -92,7 +92,7 @@ const TodoForm = () => {
 
   const onSubmit = async data => {
     console.log(data);
-    return;
+    // return;
     const formData = new FormData();
 
     if (selectedItem._id && !file.name) {
@@ -127,6 +127,15 @@ const TodoForm = () => {
     let src = URL.createObjectURL(e.target.files[0]);
     setImgSrc(src);
   };
+
+  const disableBtn = useMemo(() => {
+    return (
+      addTodoMutation.isLoading ||
+      editTodoMutation.isLoading ||
+      labels.length === 0 ||
+      file.name == undefined
+    );
+  }, [addTodoMutation.isLoading, editTodoMutation.isLoading, labels, file]);
 
   return (
     <div className="form-container">
@@ -183,16 +192,17 @@ const TodoForm = () => {
           <p>Labels</p>
           {query.isSuccess
             ? query.data.map(labelItem => (
-                <CheckBox
-                  value={labels.find(label => label === labelItem._id)}
-                  checked={labels.find(label => label === labelItem._id)}
-                  key={labelItem._id}
-                  text={labelItem.title}
-                  onChangeStatus={() => {
-                    onSelect(labelItem._id);
-                  }}
-                  id={labelItem._id}
-                />
+                <div className="check-container" key={labelItem._id}>
+                  <CheckBox
+                    register={() => register("labels")}
+                    // checked={labels.find(label => label == labelItem._id)}
+                    text={labelItem.title}
+                    onChangeStatus={() => {
+                      onSelect(labelItem._id);
+                    }}
+                    id={labelItem._id}
+                  />
+                </div>
               ))
             : null}
         </div>
@@ -218,7 +228,13 @@ const TodoForm = () => {
           {imgSrc ? <img src={imgSrc} /> : null}
         </div>
         <input
-          disabled={addTodoMutation.isLoading}
+          // disabled={
+          //   addTodoMutation.isLoading ||
+          //   editTodoMutation ||
+          //   !labels.length ||
+          //   !file.name
+          // }
+          disabled={disableBtn}
           className="btn-primary"
           type="submit"
           value={selectedItem._id ? "Edit" : "Add"}

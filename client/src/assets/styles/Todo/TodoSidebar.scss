@@ -1,5 +1,12 @@
 @import "../variables.scss";
 
+.lbl-container {
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
 .side-bar {
   // background-color: red;
   padding-right: 1rem;

@@ -38,7 +38,7 @@ const TodoSidebar = () => {
       <button onClick={showLabelForm} className="btn-primary btn-label">
         Add New Label
       </button>
-      <div>
+      <div className="lbl-container">
         <TodoLabelItem
           onClick={() => {
             onSelect(null);

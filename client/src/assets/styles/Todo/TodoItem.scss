@@ -16,6 +16,19 @@
   border-radius: 20px;
   width: calc(100%);
   background-color: $bg-primary;
+  .todo-description {
+    width: calc(100%);
+    overflow: hidden;
+    white-space: nowrap;
+    display: inline-block;
+    text-overflow: ellipsis;
+    color: $text-color-2;
+
+    line-height: 1.5rem;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
 
   .todo-labels {
     display: flex;
