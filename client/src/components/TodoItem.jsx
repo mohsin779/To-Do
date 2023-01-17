@@ -21,7 +21,11 @@ const TodoItem = ({ todo, selected }) => {
 
   return (
     <div>
-      <div className={`todo-item ${selectedItem._id === todo._id}`}>
+      <div
+        className={`todo-item ${
+          selectedItem._id === todo._id ? "todo-item-active" : ""
+        }`}
+      >
         <TodoHeader item={todo} />
         <TodoDescription description={todo.description} />
         <TodoFooter item={todo} />
