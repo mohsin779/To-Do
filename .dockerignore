@@ -1,0 +1,7 @@
+**/node_modules
+client/node_modules/
+build
+.dockerignore
+# Dockerfile
+Dockerfile.prod
+yarn.locknode_modules 
