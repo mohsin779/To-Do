@@ -11,8 +11,6 @@ function useRefetchItems(label = null) {
     },
   });
 
-  query.refet;
-
   return query;
 }
 

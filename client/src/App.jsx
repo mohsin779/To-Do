@@ -1,15 +1,17 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 
 import ActivityIndicator from "./components/ActivityIndicator";
 import Center from "./components/Wrappers/Center";
-import TodoDetails from "./views/TodoDetails";
-import TodoForm from "./views/TodoForm";
-import TodoList from "./views/TodoList";
-import TodoSidebar from "./views/TodoSidebar";
-import { useSelector } from "react-redux";
+import {
+  LabelForm,
+  TodoDetails,
+  TodoForm,
+  TodoList,
+  TodoSidebar,
+} from "./views";
 
 import useRefetchItems from "./hooks/useRefetchItems";
-import LabelForm from "./views/LabelForm";
+import { useSelector } from "react-redux";
 
 function App() {
   const query = useRefetchItems();

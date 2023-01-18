@@ -1,6 +1,6 @@
 import { fireEvent, render, screen } from "@testing-library/react";
-import { describe, expect, it, test } from "vitest";
-import MockStore from "../components/MockStore";
+import { describe, expect, test } from "vitest";
+import MockStore from "../utils/MockStore";
 import { store } from "../stores";
 import TodoForm from "./TodoForm";
 
@@ -13,19 +13,13 @@ const Wrapper = () => {
 };
 
 describe("TodoForm Component", () => {
-  test("Error message should be hidden when title and description inputs are filled", () => {
+  test("Error messages should be visible when button is clicked and fields are empty", () => {
     render(<Wrapper />);
-    // const titleElement = screen.getByPlaceholderText("Title");
-    // const descElement = screen.getByPlaceholderText("Description");
-
-    // fireEvent.change(titleElement, { target: { value: "Hello" } });
-    // fireEvent.change(descElement, { target: { value: "Description" } });
-
     const errorElements = screen.getAllByTestId("error-msg");
-    // const paragraphElement = screen.getByText("important");
-    // const btnElement = screen.getByRole("button");
+    const btnElement = screen.getByRole("button");
+    fireEvent.click(btnElement);
     errorElements.forEach(element => {
-      expect(element).not.toBeVisible();
+      expect(element).toBeVisible();
     });
   });
 });

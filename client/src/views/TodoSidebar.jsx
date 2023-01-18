@@ -14,18 +14,21 @@ import {
 const TodoSidebar = () => {
   const dispatch = useDispatch();
 
-  const selectedLabel = useSelector(state => state.todo.selectedLabel);
+  const { selectedLabel, labelForm } = useSelector(state => state.todo);
   const itemsQuery = useQuery(
     ["GET_FILTETRED_ITEMS", selectedLabel],
     () => todoApi.getTodos(selectedLabel),
     {
       onSuccess: data => {
-        console.log(data);
         dispatch(setItems(data));
       },
     }
   );
   const query = useQuery(["GET_ALL_LABELS"], () => todoApi.getLabels());
+
+  useEffect(() => {
+    refetechLabels();
+  }, [labelForm]);
 
   const showForm = () => {
     dispatch(toggleShowForm());
@@ -33,10 +36,16 @@ const TodoSidebar = () => {
   };
   const showLabelForm = () => {
     dispatch(toggleLabelForm());
+    refetechLabels();
   };
 
   const onSelect = id => {
     dispatch(setSelectedLabel(id));
+    refetechLabels();
+  };
+
+  const refetechLabels = () => {
+    query.refetch();
   };
 
   return (
@@ -61,8 +70,11 @@ const TodoSidebar = () => {
         {query.isSuccess
           ? query.data.map(label => (
               <TodoLabelItem
+                refetch={refetechLabels}
+                deleteable={true}
+                id={label._id}
                 selected={selectedLabel === label._id}
-                onClick={() => {
+                onClick={e => {
                   onSelect(label._id);
                 }}
                 key={label.title}

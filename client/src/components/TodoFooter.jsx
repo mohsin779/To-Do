@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { useMutation } from "react-query";
 import todoApi from "../api/todo";
 import CheckBox from "./CheckBox";
@@ -30,9 +30,6 @@ const TodoFooter = props => {
         });
       }
     });
-    for (const value of formData.values()) {
-      console.log(value);
-    }
 
     // Updating status to new value
     formData.set("status", !status);
@@ -56,21 +53,7 @@ const TodoFooter = props => {
         onChangeStatus={onChangeStatus}
         id={item && item._id}
       />
-      {/* <div className="mad-container">
-        <div className="round">
-          <input
-            ref={checkboxRef}
-            type="checkbox"
-            checked={status}
-            onChange={onChangeStatus}
-            id={item && item._id}
-          />
-          <label htmlFor={item && item._id}></label>
-        </div>
-        <p onClick={selectCheckbox} className="mad">
-          Mark as Done
-        </p>
-      </div> */}
+
       <div className="todo-labels" data-testid="footer-labels">
         {labels.map(label => (
           <TodoLabelCircle key={label.color} color={label.color} />

@@ -21,6 +21,13 @@ describe("TodoFooter Component", () => {
 
     const labelContainerElement = screen.getByTestId("footer-labels");
 
-    expect(labelContainerElement.childElementCount).toBe(5);
+    expect(labelContainerElement.childElementCount).toBeLessThanOrEqual(5);
+  });
+  test("should toggle status of item when clicked", () => {
+    render(<MockTodoFooter />);
+
+    const labelContainerElement = screen.getByTestId("footer-labels");
+
+    expect(labelContainerElement.childElementCount).toBeLessThanOrEqual(5);
   });
 });

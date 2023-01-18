@@ -193,6 +193,16 @@ input[type="submit"]:hover {
   display: block;
   cursor: pointer;
 }
+.del-label {
+  top: 0;
+  right: 0;
+  font-size: 24px;
+  margin-right: 1rem;
+  margin-top: 0.5rem;
+}
 .close:hover {
   color: $bg-primary-dark;
+}
+.del-label:hover {
+  color: rgb(235, 27, 27);
 }

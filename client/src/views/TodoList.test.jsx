@@ -1,30 +1,38 @@
-import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { render } from "@testing-library/react";
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import { describe, expect, test } from "vitest";
+import MockStore from "../utils/MockStore";
 import { store } from "../stores";
-import { setSelectedItem } from "../stores/Todo/todoSlice";
-import TodoForm from "../views/TodoForm";
-import DropdownMenu from "./DropdownMenu";
-import MockStore from "./MockStore";
+import { setItems } from "../stores/Todo/todoSlice";
 import TodoList from "./TodoList";
+import data from "../../data/db.json";
 
-const mockItems = [];
+const MockTodoList = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(setItems(data.todo));
+  }, []);
+
+  return <TodoList />;
+};
 
 const Wrapper = () => {
   return (
     <MockStore store={store}>
-      <TodoList />
+      <MockTodoList />
     </MockStore>
   );
 };
 
 describe("TodoList Component", () => {
-  test("should be ", () => {
+  test("length of elements and items should be same", () => {
     render(<Wrapper />);
-    // const listElements=screen.
-    const dropdownElement = screen.getByTestId("ddm");
-    expect(dropdownElement).toBeVisible();
+
+    const listElement = document.querySelector(".list-container");
+
+    expect(listElement.childElementCount).toBe(data.todo.length);
   });
 });

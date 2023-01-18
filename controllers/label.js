@@ -4,7 +4,6 @@ const { Post } = require("../models/post");
 
 exports.addLabel = async (req, res) => {
   try {
-    console.log(req.body);
     const { error } = LabelValidations.validate(req.body);
     if (error) {
       return res
@@ -32,14 +31,17 @@ exports.getLabels = async (req, res) => {
 
 exports.deleteLabel = async (req, res) => {
   try {
-    const { id } = req.body;
+    // const { id } = req.body;
+    // const labelId = req.query.id;
+    const { id } = req.params;
+
     const label = await Label.findById(id);
     let posts = await Post.find();
 
     if (label) {
       posts = await Promise.all(
-        posts.map(async (post) => {
-          const found = post.labels.filter((label) => {
+        posts.map(async post => {
+          const found = post.labels.filter(label => {
             return label._id.toString() == id;
           });
           if (found.length > 0) {
@@ -47,7 +49,7 @@ exports.deleteLabel = async (req, res) => {
           }
         })
       );
-      posts = posts.filter((post) => post);
+      posts = posts.filter(post => post);
       if (posts.length > 0) {
         return res.status(StatusCodes.BAD_REQUEST).send({
           message:

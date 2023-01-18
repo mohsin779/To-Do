@@ -1,23 +1,18 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 
 import { useForm } from "react-hook-form";
 
 import { yupResolver } from "@hookform/resolvers/yup";
 
 import { todoSchema } from "../validations/TodoValidation";
-import ReactDOM from "react-dom/client";
 
-import Error from "../components/Error";
 import { useMutation, useQuery } from "react-query";
 
-import CheckBox from "../components/CheckBox";
 import todoApi from "../api/todo";
 
 import { useDispatch, useSelector } from "react-redux";
 import { setSelectedItem, toggleShowForm } from "../stores/Todo/todoSlice";
-
-import Center from "../components/Wrappers/Center";
-import ActivityIndicator from "../components/ActivityIndicator";
+import { ActivityIndicator, Center, CheckBox, Error } from "../components";
 
 const TodoForm = () => {
   const dispatch = useDispatch();
@@ -34,10 +29,6 @@ const TodoForm = () => {
   } = useForm({
     resolver: yupResolver(todoSchema),
   });
-
-  useEffect(() => {
-    console.log(errors);
-  }, [errors]);
 
   const addTodoMutation = useMutation({
     mutationFn: formData => {
@@ -58,12 +49,6 @@ const TodoForm = () => {
   });
 
   const query = useQuery("GET_ALL_LABELS", () => todoApi.getLabels());
-
-  // const [file, setFile] = useState(() => {
-  //   return selectedItem.image
-  //     ? { name: selectedItem.image.split("/")[selectedItem.image.length - 1] }
-  //     : {};
-  // });
   const [file, setFile] = useState({});
 
   const [imgSrc, setImgSrc] = useState(() => {
@@ -91,8 +76,6 @@ const TodoForm = () => {
   };
 
   const onSubmit = async data => {
-    console.log(data);
-    // return;
     const formData = new FormData();
 
     if (selectedItem._id && !file.name) {
@@ -106,10 +89,6 @@ const TodoForm = () => {
 
     if (selectedItem._id) editTodoMutation.mutate(formData);
     else addTodoMutation.mutate(formData);
-
-    for (const value of formData.values()) {
-      console.log(value);
-    }
   };
 
   const onSelect = id => {
@@ -219,22 +198,11 @@ const TodoForm = () => {
           <label htmlFor="image">
             {file.name ? file.name : "Choose an Image"}
           </label>
-          {/* {!file.name ? (
-            <div className="file-upload-error">
-              {<Error>Please choose an image</Error>}
-            </div>
-          ) : null} */}
         </div>
         <div className="img-preview">
           {imgSrc ? <img src={imgSrc} /> : null}
         </div>
         <input
-          // disabled={
-          //   addTodoMutation.isLoading ||
-          //   editTodoMutation ||
-          //   !labels.length ||
-          //   !file.name
-          // }
           disabled={disableBtn}
           className="btn-primary"
           type="submit"

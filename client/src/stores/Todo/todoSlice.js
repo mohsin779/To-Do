@@ -29,24 +29,7 @@ const todoSlice = createSlice({
     },
 
     setSelectedLabel: (state, action) => {
-      // if (state.selectedLabel === null) {
-      //   state.filteredItems = state.items;
-      //   return;
-      // }
-      // console.log(action.payload);
-      // console.log(states);
-
-      // const filteredItems = state.items.filter(
-      //   item =>
-      //     item.labels
-      //       .map(label => label._id)
-      //       .findIndex(
-      //         item => item == action.payload || action.payload === null
-      //       ) > -1
-      // );
-
       state.selectedLabel = action.payload;
-      // state.filteredItems = filteredItems;
     },
   },
 });

@@ -1,13 +1,8 @@
-import { fireEvent, render, screen, waitFor } from "@testing-library/react";
-import { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { render, screen } from "@testing-library/react";
 
 import { describe, expect, test } from "vitest";
 import { store } from "../stores";
-import { setSelectedItem } from "../stores/Todo/todoSlice";
-import TodoForm from "../views/TodoForm";
-import DropdownMenu from "./DropdownMenu";
-import MockStore from "./MockStore";
+import MockStore from "../utils/MockStore";
 import TodoHeader from "./TodoHeader";
 
 const mockItem = {
@@ -34,18 +29,6 @@ const mockItem = {
   __v: 0,
 };
 
-// const MockDropdownMenu = () => {
-//   const selectedItem = useSelector(state => state.todo.selectedItem);
-//   console.log(selectedItem);
-
-//   return (
-//     <>
-//       <DropdownMenu item={mockItem} />
-//       <p data-testid="check-selected-item">{selectedItem.title}</p>
-//     </>
-//   );
-// };
-
 const Wrapper = () => {
   return (
     <MockStore store={store}>
@@ -60,20 +43,4 @@ describe("TodoHeader Component", () => {
     const h3Element = screen.getByText(mockItem.title);
     expect(h3Element).toBeInTheDocument();
   });
-
-  // test("should display DropDown when DotsIcon is mouse-overed", () => {
-  //   render(<Wrapper />);
-  //   const buttonElement = screen.getByRole("button");
-  //   fireEvent.mouseOver(buttonElement);
-
-  //   const dropdownElement = screen.getByTestId("ddm");
-  //   expect(dropdownElement).toBeVisible();
-  // });
-
-  // test("should not display DropDown when DotsIcon is not hovered", () => {
-  //   render(<Wrapper />);
-
-  //   const dropdownElement = screen.getByTestId("ddm");
-  //   expect(dropdownElement).hasStyl
-  // });
 });

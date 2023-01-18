@@ -4,10 +4,4 @@ import TodoForm from "./TodoForm";
 import TodoList from "./TodoList";
 import TodoSidebar from "./TodoSidebar";
 
-export default {
-  LabelForm,
-  TodoDetails,
-  TodoSidebar,
-  TodoList,
-  TodoForm,
-};
+export { LabelForm, TodoDetails, TodoSidebar, TodoList, TodoForm };

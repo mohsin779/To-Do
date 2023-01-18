@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 import { useForm } from "react-hook-form";
 
@@ -7,20 +7,13 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { labelSchema } from "../validations/TodoValidation";
 
 import Error from "../components/Error";
-import { useMutation, useQuery } from "react-query";
+import { useMutation } from "react-query";
 
-import CheckBox from "../components/CheckBox";
 import todoApi from "../api/todo";
 
-import { useDispatch, useSelector } from "react-redux";
-import {
-  setSelectedItem,
-  toggleLabelForm,
-  toggleShowForm,
-} from "../stores/Todo/todoSlice";
-
-import Center from "../components/Wrappers/Center";
-import ActivityIndicator from "../components/ActivityIndicator";
+import { useDispatch } from "react-redux";
+import { toggleLabelForm } from "../stores/Todo/todoSlice";
+import { ActivityIndicator, Center } from "../components";
 
 const LabelForm = () => {
   const dispatch = useDispatch();
@@ -62,12 +55,6 @@ const LabelForm = () => {
   };
 
   const onSubmit = async data => {
-    console.log(data);
-    // const formData = new FormData();
-
-    // formData.append("title", data.title);
-    // formData.append("color", data.color);
-
     addLabelMutation.mutate({ title: data.title, color: data.color });
   };
 

@@ -40,6 +40,7 @@ const todoApi = {
       return [];
     }
   },
+
   // CREATE
   addTodo: async todoData => {
     return await client.post("/api/post/add-post", todoData, {
@@ -65,6 +66,9 @@ const todoApi = {
   // DELETE
   deleteTodo: async id => {
     return await client.delete("/api/post/delete-post/" + id);
+  },
+  deleteLabel: async id => {
+    return await client.delete("/api/label/delete-label/" + id);
   },
   // addProduct: async productData => {
   //   return client.post("/products/add", { ...productData });

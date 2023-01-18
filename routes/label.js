@@ -5,6 +5,6 @@ const router = express.Router();
 
 router.post("/add-label", labelController.addLabel);
 router.get("/get-labels", labelController.getLabels);
-router.delete("/delete-label", labelController.deleteLabel);
+router.delete("/delete-label/:id", labelController.deleteLabel);
 
 module.exports = router;
