@@ -89,7 +89,23 @@ exports.editPost = async (req, res) => {
 
 exports.getPosts = async (req, res) => {
   try {
-    const posts = await Post.find().populate("labels");
+    let posts;
+    const labelId = req.query.label;
+    posts = await Post.find().populate("labels");
+
+    if (labelId) {
+      posts = await Promise.all(
+        posts.map(async (post) => {
+          const found = post.labels.filter((label) => {
+            return label._id.toString() == labelId;
+          });
+          if (found.length > 0) {
+            return post;
+          }
+        })
+      );
+      posts = posts.filter((post) => post);
+    }
     res.status(StatusCodes.OK).send({ posts });
   } catch (err) {
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({ error: err.message });
