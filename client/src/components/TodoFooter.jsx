@@ -51,6 +51,7 @@ const TodoFooter = props => {
     <div className="item-footer" {...props}>
       <CheckBox
         text="Mark as Done"
+        register={() => {}}
         checked={status}
         onChangeStatus={onChangeStatus}
         id={item && item._id}

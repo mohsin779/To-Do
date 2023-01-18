@@ -9,7 +9,10 @@ export const todoSchema = yup.object().shape({
     }
     return false;
   }),
-  labels: yup.array().min(1, "Select atleast one Label").required("required"),
+  labels: yup.array().test("labels", "Err", value => {
+    // console.log(value);
+    return true;
+  }),
   // image: yup.object().shape({
   //   file: yup
 
