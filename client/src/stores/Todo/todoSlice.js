@@ -33,19 +33,20 @@ const todoSlice = createSlice({
       //   state.filteredItems = state.items;
       //   return;
       // }
-      console.log(action.payload);
+      // console.log(action.payload);
+      // console.log(states);
 
-      const filteredItems = state.items.filter(
-        item =>
-          item.labels
-            .map(label => label._id)
-            .findIndex(
-              item => item == action.payload || action.payload === null
-            ) > -1
-      );
+      // const filteredItems = state.items.filter(
+      //   item =>
+      //     item.labels
+      //       .map(label => label._id)
+      //       .findIndex(
+      //         item => item == action.payload || action.payload === null
+      //       ) > -1
+      // );
 
       state.selectedLabel = action.payload;
-      state.filteredItems = filteredItems;
+      // state.filteredItems = filteredItems;
     },
   },
 });

@@ -4,6 +4,7 @@ import todoApi from "../api/todo";
 import TodoLabelItem from "../components/TodoLabelItem";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  setItems,
   setSelectedItem,
   setSelectedLabel,
   toggleLabelForm,
@@ -14,8 +15,17 @@ const TodoSidebar = () => {
   const dispatch = useDispatch();
 
   const selectedLabel = useSelector(state => state.todo.selectedLabel);
-
-  const query = useQuery(["getLalkmokadbels"], () => todoApi.getLabels());
+  const itemsQuery = useQuery(
+    ["GET_FILTETRED_ITEMS", selectedLabel],
+    () => todoApi.getTodos(selectedLabel),
+    {
+      onSuccess: data => {
+        console.log(data);
+        dispatch(setItems(data));
+      },
+    }
+  );
+  const query = useQuery(["GET_ALL_LABELS"], () => todoApi.getLabels());
 
   const showForm = () => {
     dispatch(toggleShowForm());

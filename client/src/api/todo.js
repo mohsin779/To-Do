@@ -2,9 +2,10 @@ import client from "./client";
 
 const todoApi = {
   // READ
-  getTodos: async () => {
+  getTodos: async label => {
+    const route = `/api/post/get-posts${label ? "?label=" + label : ""}`;
     try {
-      const response = await client.get("/api/post/get-posts");
+      const response = await client.get(route);
       if (!response.ok) {
         throw new Error(response.problem);
       }
