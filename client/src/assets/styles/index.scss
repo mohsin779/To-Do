@@ -1,0 +1,31 @@
+@import "./App.scss";
+@import "./DropDownMenu.scss";
+@import "./Todo/TodoDescription.scss";
+@import "./Todo/TodoDetails.scss";
+@import "./Todo/TodoFooter.scss";
+@import "./Todo/TodoHeader.scss";
+@import "./Todo/TodoItem.scss";
+@import "./Todo/TodoLabelCircle.scss";
+@import "./Todo/TodoLabelItem.scss";
+@import "./Todo/TodoList.scss";
+@import "./TodoForm.scss";
+@import "./FileInput.scss";
+@import "./Todo/TodoSidebar.scss";
+@import "./ActivityIndicator.scss";
+@import "./variables.scss";
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+textarea::placeholder,
+input::placeholder {
+  font-family: $font-kanit;
+}
+
+input:disabled,
+input:disabled:hover {
+  background-color: $bg-disabled;
+  border-color: $bg-disabled;
+}

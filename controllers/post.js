@@ -7,7 +7,12 @@ const { Post, PostValidations } = require("../models/post");
 
 exports.addPost = async (req, res, next) => {
   try {
-    const { error } = PostValidations.validate(req.body);
+    const reqData = req.body;
+
+    if (typeof reqData.labels === "string") {
+      reqData.labels = [reqData.labels];
+    }
+    const { error } = PostValidations.validate(reqData);
     if (error) {
       return res
         .status(StatusCodes.BAD_REQUEST)
@@ -17,7 +22,7 @@ exports.addPost = async (req, res, next) => {
     if (req.file) {
       imagePath = await cloudinary.uploader.upload(req.file.path);
     }
-    const { title, description, labels, status } = req.body;
+    const { title, description, labels, status } = reqData;
 
     const newPost = new Post({
       title: title,
@@ -55,13 +60,19 @@ exports.deletePost = async (req, res) => {
 
 exports.editPost = async (req, res) => {
   try {
-    const { error } = PostValidations.validate(req.body);
+    const reqData = req.body;
+
+    if (typeof reqData.labels === "string") {
+      reqData.labels = [reqData.labels];
+    }
+
+    const { error } = PostValidations.validate(reqData);
     if (error) {
       return res
         .status(StatusCodes.BAD_REQUEST)
         .send({ error: error.details[0].message });
     }
-    const { title, description, labels, status } = req.body;
+    const { title, description, labels, status } = reqData;
     const { postId } = req.params;
     const post = await Post.findById(postId);
     let imagePath = post.image;
@@ -122,7 +133,7 @@ exports.getPost = async (req, res) => {
   }
 };
 
-const clearImage = (filePath) => {
+const clearImage = filePath => {
   filePath = path.join(__dirname, "..", filePath);
-  fs.unlink(filePath, (err) => (err ? console.log(err) : null));
+  fs.unlink(filePath, err => (err ? console.log(err) : null));
 };

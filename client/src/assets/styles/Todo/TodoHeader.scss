@@ -1,0 +1,14 @@
+.todo-header {
+  margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.todo-title,
+.todo-description {
+  color: $text-color;
+  font-family: $font-kanit;
+}
+.todo-title {
+  font-size: 1.25rem;
+}

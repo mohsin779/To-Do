@@ -1,0 +1,35 @@
+.todo-item:hover {
+  transform: scale(1.02);
+  box-shadow: 4.7px 4.7px 16.2px -45px rgba(0, 0, 0, 0.041),
+    55px 55px 129px -45px rgba(0, 0, 0, 0.1);
+}
+.todo-item-active {
+  transform: scale(1.03);
+  box-shadow: 4.7px 4.7px 16.2px -45px rgba(0, 0, 0, 0.041),
+    55px 55px 129px -45px rgba(0, 0, 0, 0.1);
+}
+.todo-item {
+  margin-top: 1rem;
+  cursor: pointer;
+  text-overflow: ellipsis;
+  padding: 1rem 1.5rem;
+  border-radius: 20px;
+  width: calc(100%);
+  background-color: $bg-primary;
+
+  .desc-container {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    height: 50%;
+  }
+
+  .todo-description {
+    color: $text-color-2;
+    line-height: 1.5rem;
+  }
+
+  .todo-labels {
+    display: flex;
+    justify-content: end;
+  }
+}
