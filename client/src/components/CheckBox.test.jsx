@@ -6,7 +6,7 @@ import CheckBox from "./CheckBox";
 describe("CheckBox Component", () => {
   test("should render the same text passed as props", () => {
     const text = "Mark as Done";
-    render(<CheckBox text={text} />);
+    render(<CheckBox register={() => {}} text={text} />);
 
     const paragraphElement = screen.getByText(text);
 
@@ -14,7 +14,7 @@ describe("CheckBox Component", () => {
   });
 
   test("should be unchecked initially if checked is not passed", () => {
-    render(<CheckBox text="Mark as Done" />);
+    render(<CheckBox register={() => {}} text="Mark as Done" />);
 
     const checkBoxElement = screen.getByRole("checkbox");
 
@@ -22,7 +22,7 @@ describe("CheckBox Component", () => {
   });
 
   test("should be clicked when the paragraph is clicked", () => {
-    render(<CheckBox text="Mark as Done" />);
+    render(<CheckBox register={() => {}} text="Mark as Done" />);
 
     const paragraphElement = screen.getByText("Mark as Done");
 

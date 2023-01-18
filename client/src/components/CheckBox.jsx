@@ -11,8 +11,8 @@ const CheckBox = ({ text, checked, value, onChangeStatus, id, register }) => {
     <div className="mad-container">
       <div className="round">
         <input
-          value={value}
           {...register()}
+          value={value}
           ref={checkboxRef}
           type="checkbox"
           checked={checked}

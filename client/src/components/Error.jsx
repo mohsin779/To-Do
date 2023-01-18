@@ -3,6 +3,7 @@ import React from "react";
 const Error = ({ children }) => {
   return (
     <p
+      data-testid="error-msg"
       style={{
         color: "red",
         fontSize: ".8rem",

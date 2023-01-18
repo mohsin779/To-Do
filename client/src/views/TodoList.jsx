@@ -13,6 +13,7 @@ const TodoList = () => {
     <section className="list-container">
       {items.map(todo => (
         <div
+          data-testid="list-item"
           key={todo._id}
           onClick={() => {
             dispatch(setSelectedItem(todo));

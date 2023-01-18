@@ -195,6 +195,7 @@ const TodoForm = () => {
                 <div className="check-container" key={labelItem._id}>
                   <CheckBox
                     register={() => register("labels")}
+                    value={labelItem._id}
                     // checked={labels.find(label => label == labelItem._id)}
                     text={labelItem.title}
                     onChangeStatus={() => {
@@ -218,11 +219,11 @@ const TodoForm = () => {
           <label htmlFor="image">
             {file.name ? file.name : "Choose an Image"}
           </label>
-          {!file.name ? (
+          {/* {!file.name ? (
             <div className="file-upload-error">
               {<Error>Please choose an image</Error>}
             </div>
-          ) : null}
+          ) : null} */}
         </div>
         <div className="img-preview">
           {imgSrc ? <img src={imgSrc} /> : null}
