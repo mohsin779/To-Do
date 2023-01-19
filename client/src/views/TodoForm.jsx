@@ -13,6 +13,7 @@ import todoApi from "../api/todo";
 import { useDispatch, useSelector } from "react-redux";
 import { setSelectedItem, toggleShowForm } from "../stores/Todo/todoSlice";
 import { ActivityIndicator, Center, CheckBox, Error } from "../components";
+import { useEffect } from "react";
 
 const TodoForm = () => {
   const dispatch = useDispatch();
@@ -75,11 +76,15 @@ const TodoForm = () => {
     dispatch(setSelectedItem({}));
   };
 
+  // useEffect(() => {
+  //   console.log("ERRORS", errors);
+  // }, [errors]);
+
   const onSubmit = async data => {
     const formData = new FormData();
-
-    if (selectedItem._id && !file.name) {
-    } else formData.append("image", file);
+    // console.log(data.image);
+    // return;
+    formData.append("image", data.image[0]);
     labels.forEach(label => {
       formData.append("labels", label);
     });
@@ -101,20 +106,16 @@ const TodoForm = () => {
     setLabels(tempLabels);
   };
 
-  const selectFile = e => {
-    setFile(e.target.files[0]);
-    let src = URL.createObjectURL(e.target.files[0]);
-    setImgSrc(src);
-  };
+  // const disableBtn = useMemo(() => {
+  //   return (
+  //     addTodoMutation.isLoading ||
+  //     editTodoMutation.isLoading ||
+  //     labels.length === 0 ||
+  //     file.name == undefined
+  //   );
+  // }, [addTodoMutation.isLoading, editTodoMutation.isLoading, labels, file]);
 
-  const disableBtn = useMemo(() => {
-    return (
-      addTodoMutation.isLoading ||
-      editTodoMutation.isLoading ||
-      labels.length === 0 ||
-      file.name == undefined
-    );
-  }, [addTodoMutation.isLoading, editTodoMutation.isLoading, labels, file]);
+  const imageRegister = register("image", { required: true });
 
   return (
     <div className="form-container">
@@ -193,17 +194,31 @@ const TodoForm = () => {
             type="file"
             id="image"
             accept="image/*"
-            onChange={selectFile}
+            {...register("image")}
+            onChange={e => {
+              let src = URL.createObjectURL(e.target.files[0]);
+              setImgSrc(src);
+
+              imageRegister.onChange(e);
+            }}
+            onBlur={imageRegister.onBlur}
+            ref={imageRegister.ref}
+
+            // onChange={selectFile}
           />
           <label htmlFor="image">
             {file.name ? file.name : "Choose an Image"}
           </label>
         </div>
+        <div style={{ alignSelf: "flex-start" }}>
+          <Error>{errors["image"] ? errors["image"].message : " "}</Error>
+        </div>
+
         <div className="img-preview">
           {imgSrc ? <img src={imgSrc} /> : null}
         </div>
         <input
-          disabled={disableBtn}
+          // disabled={disableBtn}
           className="btn-primary"
           type="submit"
           value={selectedItem._id ? "Edit" : "Add"}
