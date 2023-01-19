@@ -1,5 +1,5 @@
 # pull official base image
-FROM node:16-alpine
+FROM node:18.13.0-alpine
 
 # set working directory
 WORKDIR /app
@@ -9,7 +9,7 @@ WORKDIR /app
 
 # install app dependencies
 COPY package.json ./
-COPY yarn.lock ./
+# COPY yarn.lock ./
 RUN yarn install
 # RUN npm install react-scripts@3.4.1 -g
 
@@ -17,4 +17,5 @@ RUN yarn install
 COPY . ./
 
 # start app
-CMD ["npm", "run","dev"]
+# CMD ["npm", "run","dev"]
+CMD ["yarn","dev"]

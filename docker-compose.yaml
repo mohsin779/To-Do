@@ -1,0 +1,34 @@
+version: "3.7"
+
+services:
+  client:
+    container_name: client
+    build:
+      context: ./client
+      dockerfile: ./Dockerfile
+    volumes:
+      - ".:/app/client"
+      - "/app/client/node_modules"
+    ports:
+      - 5173:5173
+    networks:
+      - todonetwork
+    depends_on:
+      - server
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+  server:
+    container_name: server
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - 8085:8085
+    volumes:
+      - ".:/app"
+      - "/app/node_modules"
+    env_file:
+      - ./.env
+networks:
+  todonetwork:
+    driver: bridge
