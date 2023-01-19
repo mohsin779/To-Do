@@ -47,9 +47,11 @@ exports.deletePost = async (req, res) => {
     if (!post) {
       return res.stus(StatusCodes.NOT_FOUND).send({ error: "Post not found" });
     }
-    var filename = post.image.split("/").pop();
-    filename = filename.split(".")[0];
-    cloudinary.uploader.destroy(filename);
+    if (post.image) {
+      var filename = post.image.split("/").pop();
+      filename = filename.split(".")[0];
+      cloudinary.uploader.destroy(filename);
+    }
     await Post.findByIdAndRemove(postId);
 
     return res.status(StatusCodes.OK).send({ message: "Post Deleted." });
@@ -106,8 +108,8 @@ exports.getPosts = async (req, res) => {
 
     if (labelId) {
       posts = await Promise.all(
-        posts.map(async (post) => {
-          const found = post.labels.filter((label) => {
+        posts.map(async post => {
+          const found = post.labels.filter(label => {
             return label._id.toString() == labelId;
           });
           if (found.length > 0) {
@@ -115,7 +117,7 @@ exports.getPosts = async (req, res) => {
           }
         })
       );
-      posts = posts.filter((post) => post);
+      posts = posts.filter(post => post);
     }
     res.status(StatusCodes.OK).send({ posts });
   } catch (err) {
