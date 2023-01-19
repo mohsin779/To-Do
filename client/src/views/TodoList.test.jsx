@@ -4,12 +4,12 @@ import { useDispatch } from "react-redux";
 
 import { describe, expect, test } from "vitest";
 import MockStore from "../utils/MockStore";
-import { store } from "../stores";
-import { setItems } from "../stores/Todo/todoSlice";
+import { actions, store } from "../stores";
 import TodoList from "./TodoList";
 import data from "../../data/db.json";
 
 const MockTodoList = () => {
+  const { setItems } = actions;
   const dispatch = useDispatch();
 
   useEffect(() => {

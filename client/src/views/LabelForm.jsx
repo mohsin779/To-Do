@@ -12,10 +12,11 @@ import { useMutation } from "react-query";
 import todoApi from "../api/todo";
 
 import { useDispatch } from "react-redux";
-import { toggleLabelForm } from "../stores/Todo/todoSlice";
 import { ActivityIndicator, Center } from "../components";
+import { actions } from "../stores";
 
 const LabelForm = () => {
+  const { toggleLabelForm } = actions;
   const dispatch = useDispatch();
 
   const {

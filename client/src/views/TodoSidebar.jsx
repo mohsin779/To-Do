@@ -3,15 +3,17 @@ import { useQuery } from "react-query";
 import todoApi from "../api/todo";
 import TodoLabelItem from "../components/TodoLabelItem";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  setItems,
-  setSelectedItem,
-  setSelectedLabel,
-  toggleLabelForm,
-  toggleShowForm,
-} from "../stores/Todo/todoSlice";
+import { actions } from "../stores";
 
 const TodoSidebar = () => {
+  const {
+    setItems,
+    setSelectedItem,
+    setSelectedLabel,
+    toggleLabelForm,
+    toggleShowForm,
+  } = actions;
+
   const dispatch = useDispatch();
 
   const { selectedLabel, labelForm } = useSelector(state => state.todo);

@@ -3,9 +3,11 @@ import React from "react";
 import TodoItem from "../components/TodoItem";
 
 import { useDispatch, useSelector } from "react-redux";
-import { setSelectedItem } from "../stores/Todo/todoSlice";
+import { actions } from "../stores";
 
 const TodoList = () => {
+  const { setSelectedItem } = actions;
+
   const dispatch = useDispatch();
   const items = useSelector(state => state.todo.filteredItems);
 

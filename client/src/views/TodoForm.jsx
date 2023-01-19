@@ -11,11 +11,12 @@ import { useMutation, useQuery } from "react-query";
 import todoApi from "../api/todo";
 
 import { useDispatch, useSelector } from "react-redux";
-import { setSelectedItem, toggleShowForm } from "../stores/Todo/todoSlice";
 import { ActivityIndicator, Center, CheckBox, Error } from "../components";
 import { useEffect } from "react";
+import { actions } from "../stores";
 
 const TodoForm = () => {
+  const { setSelectedItem, toggleShowForm } = actions;
   const dispatch = useDispatch();
 
   const { selectedItem } = useSelector(state => state.todo);
@@ -50,11 +51,11 @@ const TodoForm = () => {
   });
 
   const query = useQuery("GET_ALL_LABELS", () => todoApi.getLabels());
-  const [file, setFile] = useState({});
 
   const [imgSrc, setImgSrc] = useState(() => {
     return selectedItem.image ? selectedItem.image : "";
   });
+  const [file, setFile] = useState("");
 
   const formInputs = [
     {
@@ -76,14 +77,17 @@ const TodoForm = () => {
     dispatch(setSelectedItem({}));
   };
 
-  // useEffect(() => {
-  //   console.log("ERRORS", errors);
-  // }, [errors]);
+  useEffect(() => {
+    console.log("ERRORS", errors);
+  }, [errors]);
 
   const onSubmit = async data => {
     const formData = new FormData();
-    // console.log(data.image);
-    // return;
+
+    let labels = data.labels;
+
+    if (typeof labels === "string") labels = [labels];
+
     formData.append("image", data.image[0]);
     labels.forEach(label => {
       formData.append("labels", label);
@@ -105,15 +109,6 @@ const TodoForm = () => {
 
     setLabels(tempLabels);
   };
-
-  // const disableBtn = useMemo(() => {
-  //   return (
-  //     addTodoMutation.isLoading ||
-  //     editTodoMutation.isLoading ||
-  //     labels.length === 0 ||
-  //     file.name == undefined
-  //   );
-  // }, [addTodoMutation.isLoading, editTodoMutation.isLoading, labels, file]);
 
   const imageRegister = register("image", { required: true });
 
@@ -172,20 +167,24 @@ const TodoForm = () => {
           <p>Labels</p>
           {query.isSuccess
             ? query.data.map(labelItem => (
-                <div className="check-container" key={labelItem._id}>
-                  <CheckBox
-                    register={() => register("labels")}
-                    value={labelItem._id}
-                    // checked={labels.find(label => label == labelItem._id)}
-                    text={labelItem.title}
-                    onChangeStatus={() => {
-                      onSelect(labelItem._id);
-                    }}
-                    id={labelItem._id}
-                  />
-                </div>
+                <>
+                  <div className="check-container" key={labelItem._id}>
+                    <CheckBox
+                      value={labelItem._id}
+                      text={labelItem.title}
+                      onChangeStatus={() => {
+                        onSelect(labelItem._id);
+                      }}
+                      id={labelItem._id}
+                      register={() => register("labels")}
+                    />
+                  </div>
+                </>
               ))
             : null}
+        </div>
+        <div style={{ alignSelf: "flex-start" }}>
+          <Error>{errors["labels"] ? errors["labels"].message : " "}</Error>
         </div>
 
         <div className="file-container">
@@ -198,17 +197,14 @@ const TodoForm = () => {
             onChange={e => {
               let src = URL.createObjectURL(e.target.files[0]);
               setImgSrc(src);
+              setFile(e.target.files[0].name);
 
               imageRegister.onChange(e);
             }}
             onBlur={imageRegister.onBlur}
             ref={imageRegister.ref}
-
-            // onChange={selectFile}
           />
-          <label htmlFor="image">
-            {file.name ? file.name : "Choose an Image"}
-          </label>
+          <label htmlFor="image">{file ? file : "Choose an Image"}</label>
         </div>
         <div style={{ alignSelf: "flex-start" }}>
           <Error>{errors["image"] ? errors["image"].message : " "}</Error>
@@ -218,7 +214,6 @@ const TodoForm = () => {
           {imgSrc ? <img src={imgSrc} /> : null}
         </div>
         <input
-          // disabled={disableBtn}
           className="btn-primary"
           type="submit"
           value={selectedItem._id ? "Edit" : "Add"}

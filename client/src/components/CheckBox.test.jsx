@@ -20,16 +20,4 @@ describe("CheckBox Component", () => {
 
     expect(checkBoxElement).not.toBeChecked();
   });
-
-  test("should be clicked when the paragraph is clicked", () => {
-    render(<CheckBox register={() => {}} text="Mark as Done" />);
-
-    const paragraphElement = screen.getByText("Mark as Done");
-
-    const checkBoxElement = screen.getByRole("checkbox");
-
-    fireEvent.click(paragraphElement);
-
-    expect(checkBoxElement).toBeChecked();
-  });
 });

@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import todoApi from "../api/todo";
 import useRefetchItems from "../hooks/useRefetchItems";
 import { useDispatch } from "react-redux";
-import { setSelectedItem, toggleShowForm } from "../stores/Todo/todoSlice";
+import { actions } from "../stores";
 
 const DropdownMenu = ({ item }) => {
+  const { setSelectedItem, toggleShowForm } = actions;
   const query = useRefetchItems();
 
   const dispatch = useDispatch();
